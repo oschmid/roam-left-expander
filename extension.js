@@ -1,3 +1,10 @@
+function removeHoverElement() {
+  var leftExpander = document.querySelector('#left-expander');
+  if (leftExpander != null) {
+    leftExpander.parentNode.removeChild(leftExpander);
+  }
+}
+
 function forwardMouseEnter() {
   const leftMenu = document.querySelector('.bp3-icon-menu');
   if (leftMenu) {
@@ -7,14 +14,12 @@ function forwardMouseEnter() {
 
 function addHoverElement() {
   // cleanup old versions of the element
-  var leftExpander = document.querySelector('#left-expander');
-  if (leftExpander != null) {
-    leftExpander.parentNode.removeChild(leftExpander);
-  }
+  removeHoverElement();
+  
   // create element
   var template = document.createElement('template');
   template.innerHTML = '<span id="left-expander" style="position:absolute;height:100%;width:1em;position:absolute"></span>';
-  leftExpander = template.content.firstChild;
+  var leftExpander = template.content.firstChild;
   leftExpander.addEventListener('mouseenter', forwardMouseEnter);
 
   // insert element
@@ -23,5 +28,5 @@ function addHoverElement() {
 
 export default {
   onload: addHoverElement,
-  onunload: () => {}
+  onunload: removeHoverElement
 };
